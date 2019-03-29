@@ -14,11 +14,10 @@ app.use(
 
 app.get('/', (req, res) => {
     //using scraper method from potusScraper.js
-    // cheerio.scraper()
-    //     .then(text => { //failing here. Doesn't look like cheerio.scraper is returning a value
-    //     console.log(text);
-    // });
-    console.log(cheerio.scraper());
+    cheerio.scraper()
+        .then(text => { 
+        console.log(text.slice(0,10));
+    });
 });
 
 app.listen(process.env.PORT || 8080, () => {

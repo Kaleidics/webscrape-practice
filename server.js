@@ -13,7 +13,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-    let scraper = cheerio.scraper;
+    let { scraper } = cheerio;
 
     scraper()
         .then(html => {

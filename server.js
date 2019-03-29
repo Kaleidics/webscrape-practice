@@ -13,11 +13,16 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-    //using scraper method from potusScraper.js
-    cheerio.scraper()
-        .then(text => { 
-        console.log(text.slice(0,10));
-    });
+    let scraper = cheerio.scraper;
+
+    scraper()
+        .then(html => {
+            console.log(html.slice(0, 12));
+            res.json(html.slice(0,200));
+        })
+        .catch(err => {
+            console.log(err);
+        })
 });
 
 app.listen(process.env.PORT || 8080, () => {

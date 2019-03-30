@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
 
     scraper()
         .then(html => {
-            console.log(html.slice(0, 12));
-            res.json(html.slice(0,200));
+            // console.log(html.slice(0, 12));
+            res.send(html);
         })
         .catch(err => {
             console.log(err);

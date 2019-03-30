@@ -2,6 +2,7 @@
 
 const rp = require('request-promise');
 const $ = require('cheerio');
+const puppeteer = require('puppeteer');
 const url = 'https://en.wikipedia.org/wiki/List_of_Presidents_of_the_United_States';
 const url2 = 'https://www.reddit.com';
 
@@ -20,12 +21,22 @@ const cheerio = {
             .catch(err => console.log(err))
     },
     dynamicScraper: function() {
-        return rp(url2)
+       return puppeteer
+            .launch()
+            .then(browser => {
+                return browser.newPage();
+            })
+            .then(page => {
+                return page.goto(url2)
+                    .then(() => {return page.content});
+            })
             .then(html => {
+                console.log(html);
                 return(html);
             })
             .catch(err => console.log(err));
     }
+    
 }
 
 module.exports = cheerio;

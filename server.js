@@ -13,16 +13,24 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-    let { scraper } = cheerio;
+    let { scraper, dynamicScraper } = cheerio;
 
-    scraper()
+    // scraper()
+    //     .then(html => {
+    //         // console.log(html.slice(0, 12));
+    //         res.send(html);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+
+    dynamicScraper()
         .then(html => {
-            // console.log(html.slice(0, 12));
             res.send(html);
         })
         .catch(err => {
             console.log(err);
-        })
+        });
 });
 
 app.listen(process.env.PORT || 8080, () => {

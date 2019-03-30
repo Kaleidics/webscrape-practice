@@ -28,7 +28,7 @@ const cheerio = {
             })
             .then(page => {
                 return page.goto(url2)
-                    .then(() => {return page.content});
+                    .then(() => {return page.content()});
             })
             .then(html => {
                 console.log(html);

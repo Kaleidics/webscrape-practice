@@ -29,10 +29,16 @@ const cheerio = {
             .then(page => {
                 return page.goto(url2, { waitUntil: 'networkidle0' })
                     .then(() => {
-                        //attempting to scroll through page to cause loading in more elements, doesn't seem to work
-                        page.evaluate(() => {
-                            window.scrollBy(0, window.innerHeight);
+                        return page.evaluate(() => {
+                            window.scrollBy(0, window.innerHeight * 5);
                         })
+                    })
+                    .then((resolve) => {
+                        setTimeout(resolve, 10000);
+                    })
+                    .then(() => {
+                        //attempting to scroll through page to cause loading in more elements, doesn't seem to work
+                        
                         return page.content()
                     });
             })

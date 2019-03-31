@@ -21,46 +21,24 @@ const cheerio = {
             .catch(err => console.log(err))
     },
     dynamicScraper: function() {
-       return puppeteer
-            .launch()
-            .then(browser => {
-                return browser.newPage();
-            })
-            .then(page => {
-                return page.goto(url2, { waitUntil: 'networkidle0' })
-                    .then(() => {
-                        return page.evaluate(() => {
-                            window.scrollBy(0, window.innerHeight * 5);
-                        })
-                    })
-                    .then((resolve) => {
-                        setTimeout(resolve, 10000);
-                    })
-                    .then(() => {
-                        //attempting to scroll through page to cause loading in more elements, doesn't seem to work
-                        
-                        return page.content()
-                    });
-            })
-            .then(html => {
-                //should log the the first post's a tag's href value
-                console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href'));                    
-                const urls = [];
-                //should log the total number of a tag's across all posts
-                const numLinks = $('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href').length;
-                const links = $('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html);
+        (async () => {
+            const browser = await puppeteer.launch();
+            const [page] = await browser.pages();
 
-                //was using numLinks as increment counter but was getting undefined, as the pages only seems to load inconsistent between 10-20 elements
-                for (let i=0; i<24; i++) {
-                    urls.push(links[i].attribs.href);
-                }
-                
-                console.log('start of urls:', urls);
-                console.log('scraped urls:', urls.length);
-                console.log('numLinks:', numLinks);
-                // console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).length);
-            })
-            .catch(err => console.log(err));
+            await page.goto(url2, { waitUntil: 'networkidle0' });
+            const links = await page.evaluate(async () => {
+                const scrollfar = document.body.clientHeight;
+                console.log(scrollfar); //trying to find the height
+                window.scrollBy(0, scrollfar);
+                await new Promise(resolve => setTimeout(resolve, 10000)); 
+                return [...document.querySelectorAll('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a')]
+                    .map((el) => el.href);
+            });
+            console.log(links, links.length);
+            return(links); //how to return this to the route handler
+
+            await browser.close();
+        })();
     }
     
 }

@@ -24,14 +24,7 @@ app.get('/', (req, res) => {
     //         console.log(err);
     //     });
 
-    dynamicScraper()
-        .then(html => {
-            console.log('data was sent');
-            res.json(html);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    res.send(dynamicScraper());
 });
 
 app.listen(process.env.PORT || 8080, () => {

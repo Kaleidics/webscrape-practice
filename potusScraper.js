@@ -31,9 +31,7 @@ const cheerio = {
                     .then(() => {return page.content()});
             })
             .then(html => {
-                $('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).each(function () {
-                    console.log($(this).text());
-                });
+                console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href'));
             })
             .catch(err => console.log(err));
     }

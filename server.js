@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     //         console.log(err);
     //     });
 
-    res.send(dynamicScraper());
+    res.json(dynamicScraper());
 });
 
 app.listen(process.env.PORT || 8080, () => {

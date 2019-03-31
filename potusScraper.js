@@ -30,14 +30,15 @@ const cheerio = {
                 const scrollfar = document.body.clientHeight;
                 console.log(scrollfar); //trying to find the height
                 window.scrollBy(0, scrollfar);
-                await new Promise(resolve => setTimeout(resolve, 10000)); 
+                await new Promise(resolve => setTimeout(resolve, 5000)); 
                 return [...document.querySelectorAll('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a')]
                     .map((el) => el.href);
             });
             console.log(links, links.length);
-            return(links); //how to return this to the route handler
-
+        
             await browser.close();
+            return (links);
+            //how do I return the value to pass to the route handler?
         })();
     }
     

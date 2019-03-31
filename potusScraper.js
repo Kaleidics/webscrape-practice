@@ -28,7 +28,12 @@ const cheerio = {
             })
             .then(page => {
                 return page.goto(url2)
-                    .then(() => {return page.content()});
+                    .then(() => {
+                        page.evaluate(_ => {
+                            window.scrollBy(0, window.innerHeight);
+                        })
+                        return page.content()
+                    });
             })
             .then(html => {
                 //should log the the first post's a tag's href value

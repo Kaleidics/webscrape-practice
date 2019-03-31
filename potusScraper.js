@@ -4,7 +4,7 @@ const rp = require('request-promise');
 const $ = require('cheerio');
 const puppeteer = require('puppeteer');
 const url = 'https://en.wikipedia.org/wiki/List_of_Presidents_of_the_United_States';
-const url2 = 'https://www.reddit.com';
+const url2 = 'https://www.reddit.com/r/GameDeals/';
 
 
 
@@ -31,8 +31,9 @@ const cheerio = {
                     .then(() => {return page.content()});
             })
             .then(html => {
-                console.log(html);
-                return(html);
+                $('.scrollerItem div article div div a', html).each(function () {
+                    console.log($(this).text());
+                });
             })
             .catch(err => console.log(err));
     }

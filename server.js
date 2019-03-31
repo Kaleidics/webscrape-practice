@@ -26,7 +26,8 @@ app.get('/', (req, res) => {
 
     dynamicScraper()
         .then(html => {
-            res.send(html);
+            console.log('data was sent');
+            res.json(html);
         })
         .catch(err => {
             console.log(err);

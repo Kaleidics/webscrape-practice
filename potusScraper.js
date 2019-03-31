@@ -31,7 +31,20 @@ const cheerio = {
                     .then(() => {return page.content()});
             })
             .then(html => {
-                console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href'));
+                //should log the the first post's a tag's href value
+                console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href'));                    
+                const urls = [];
+                //should log the total number of a tag's across all posts
+                const numLinks = $('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).attr('href').length;
+                const links = $('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html);
+
+                for (let i=0; i<numLinks; i++) {
+                    urls.push(links[i]);
+                }
+                
+                console.log('start of', urls);
+                console.log(urls.length)
+                // console.log($('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a', html).length);
             })
             .catch(err => console.log(err));
     }

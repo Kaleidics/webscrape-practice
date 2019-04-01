@@ -23,8 +23,10 @@ app.get('/', (req, res) => {
     //     .catch(err => {
     //         console.log(err);
     //     });
-
-    res.json(dynamicScraper());
+    dynamicScraper().then((output) => {
+        res.json(output);
+    });
+    
 });
 
 app.listen(process.env.PORT || 8080, () => {

@@ -20,7 +20,7 @@ const cheerio = {
             })
             .catch(err => console.log(err))
     },
-    dynamicScraper: function() {
+    dynamicScraper:
         async function f() {
             const browser = await puppeteer.launch();
             const [page] = await browser.pages();
@@ -39,9 +39,9 @@ const cheerio = {
             await browser.close();
             //how do I return the value to pass to the route handler?
             return (links);
-        };
-        return(f());
-    }
+        }
+        // return(f());
+    
     
 }
 

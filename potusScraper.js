@@ -30,7 +30,7 @@ const cheerio = {
                 const scrollfar = document.body.clientHeight;
                 console.log(scrollfar); //trying to find the height
                 window.scrollBy(0, scrollfar);
-                await new Promise(resolve => setTimeout(resolve, 5000)); 
+                await new Promise(resolve => setTimeout(resolve, 10000)); 
                 return [...document.querySelectorAll('.scrollerItem div:nth-of-type(2) article div div:nth-of-type(3) a')]
                     .map((el) => el.href);
             });
